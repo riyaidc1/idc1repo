@@ -87,32 +87,32 @@ jobs:
               }
           ]'
 
-  sonarScan:
-   name: 'Sonar Scan'
-   needs: registerArtifac
-   runs-on: ubuntu-latest
-   steps:
-   - name: Checkout
-     uses: actions/checkout@v4.0.0
+  # sonarScan:
+  #  name: 'Sonar Scan'
+  #  needs: registerArtifac
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #  - name: Checkout
+  #    uses: actions/checkout@v4.0.0
   
-   - name: ServiceNow DevOps Sonar Scan Results
-   # You may pin to the exact commit or the version.     
-     uses: ServiceNow/servicenow-devops-sonar@v2.0.0
-     with:
-         # ServiceNow Instance URL
-         instance-url: ${{ secrets.SN_INSTANCE_URL }}
-         # Devops Integration Token
-         devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
-         # Orchestration Tool Id
-         tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-         # Github Context
-         context-github: ${{ toJSON(github) }}
-         # Display Name of the Job
-         job-name: 'Sonar Scan'
-         # Sonar Host URL
-         sonar-host-url: ${{ secrets.SONAR_URL }}
-         # Sonar Project Key
-         sonar-project-key: ${{ secrets.SONAR_PROJECT_KEY }}
+  #  - name: ServiceNow DevOps Sonar Scan Results
+  #  # You may pin to the exact commit or the version.     
+  #    uses: ServiceNow/servicenow-devops-sonar@v2.0.0
+  #    with:
+  #        # ServiceNow Instance URL
+  #        instance-url: ${{ secrets.SN_INSTANCE_URL }}
+  #        # Devops Integration Token
+  #        devops-integration-token: ${{ secrets.SN_DEVOPS_TOKEN }}
+  #        # Orchestration Tool Id
+  #        tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+  #        # Github Context
+  #        context-github: ${{ toJSON(github) }}
+  #        # Display Name of the Job
+  #        job-name: 'Sonar Scan'
+  #        # Sonar Host URL
+  #        sonar-host-url: ${{ secrets.SONAR_URL }}
+  #        # Sonar Project Key
+  #        sonar-project-key: ${{ secrets.SONAR_PROJECT_KEY }}
 
 
   registerPackage:
@@ -146,6 +146,18 @@ jobs:
           # Display Name of Job
           job-name: 'Register Package'
           
+   security:      
+      - name: ServiceNow DevOps Security Results
+        uses: ServiceNow/servicenow-devops-security-result@main
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          context-github: ${{ toJSON(github) }}
+          job-name: 'Veracode Static Analysis'
+          security-result-attributes: '{ "scanner": "Veracode", "applicationName": "10kflaws-72", "securityToolId": "5d8cbe8ec38a31108a432e0ad001315e" }'
+                  
   change:
     # jobs that must complete successfully before this job will run
     needs: registerPackage
