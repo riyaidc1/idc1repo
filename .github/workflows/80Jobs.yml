@@ -4,7 +4,7 @@ name: Large Workflow
   #   branches:
   #     - main
 jobs:
-    build:
+  build:
         # Running your workflow when a pull request merges
         # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-when-a-pull-request-merges-1
         #if: github.event.pull_request.merged == true
@@ -30,7 +30,7 @@ jobs:
                   path: ~/.m2
                   key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
                   restore-keys: ${{ runner.os }}-m2
-    test:
+  test:
         #if: github.event.pull_request.merged == true
         name: Test
         needs: build
@@ -53,7 +53,7 @@ jobs:
                     cd target
                     ls -a
 
-    registerPackage:
+  registerPackage:
           name: 'Register Package'
         # needs: securityScan
           runs-on: ubuntu-latest
