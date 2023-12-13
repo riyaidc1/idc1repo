@@ -118,7 +118,7 @@ jobs:
     integrationTest:
         #if: github.event.pull_request.merged == true
         name: Integration Tests
-        needs: SonarTest
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - name: ServiceNow DevOps Register Artifact
