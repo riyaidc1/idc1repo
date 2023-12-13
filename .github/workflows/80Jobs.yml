@@ -1,10 +1,10 @@
 name: Large Workflow
-'on':
-  push:
-    branches:
-      - main
+'on': workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
 jobs:
-  build:
+    build:
         # Running your workflow when a pull request merges
         # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-when-a-pull-request-merges-1
         #if: github.event.pull_request.merged == true
