@@ -156,7 +156,7 @@ jobs:
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
           job-name: 'Veracode Static Analysis'
-          security-result-attributes: '{ "scanner": "Veracode", "applicationName": "10kflaws-72", "securityToolId": "5d8cbe8ec38a31108a432e0ad001315e" }'
+          security-result-attributes: '{ "scanner": "Veracode", "applicationName": "VeraDemo10", "securityToolId": "f6cf324e978f3d1012f6b3471153af2d" }'
                   
   change:
     # jobs that must complete successfully before this job will run
